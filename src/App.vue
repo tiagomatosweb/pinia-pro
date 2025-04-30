@@ -3,6 +3,15 @@
     <v-layout>
       <v-app-bar class="text-center">
         <v-app-bar-title class="text-h5 font-weight-bold">Nova ordem de serviço</v-app-bar-title>
+
+
+        <template v-slot:append>
+          <v-btn
+            icon="mdi-bug"
+            :color="debug ? 'pink' : 'black'"
+            @click="debug = !debug"
+          />
+        </template>
       </v-app-bar>
 
       <v-main class="mt-6">
@@ -17,39 +26,44 @@
             </v-col>
 
             <v-col>
-              <OSDetails />
+              <OSDetails/>
             </v-col>
           </v-row>
 
           <div class="mt-8">
-            <OSClient />
+            <OSClient/>
           </div>
 
           <div class="mt-8">
-            <OSServices />
+            <OSServices/>
           </div>
 
           <div class="mt-6">
             <v-row>
               <v-col>
                 <v-textarea
-                    v-model="description"
-                    label="Descrição da ordem de serviço"
-                    hide-details
-                    variant="outlined"
+                  v-model="description"
+                  label="Descrição da ordem de serviço"
+                  hide-details
+                  variant="outlined"
                 />
               </v-col>
 
               <v-col>
-                <OSTotal />
+                <OSTotal/>
               </v-col>
             </v-row>
           </div>
 
           <div class="mt-8 text-right">
             <v-btn variant="text">Cancelar</v-btn>
-            <v-btn color="primary">Enviar</v-btn>
+            <v-btn color="primary" @click="onSubmit">Enviar</v-btn>
           </div>
+
+          <template v-if="debug">
+            <hr class="my-6">
+            <pre>{{ serviceOrderStore }}</pre>
+          </template>
         </v-container>
       </v-main>
     </v-layout>
@@ -66,5 +80,30 @@ import OSTotal from './components/OSTotal.vue';
 import {storeToRefs} from 'pinia';
 
 const serviceOrderStore = useServiceOrderStore()
-const {description} = storeToRefs(serviceOrderStore)
+const {
+  orderDetails,
+  client,
+  services,
+  description,
+  discountType,
+  discountValue,
+  subtotal,
+  total,
+} = storeToRefs(serviceOrderStore)
+const debug = ref(false)
+
+function onSubmit() {
+  if (debug.value) {
+    console.log({
+      'Detalhes': orderDetails.value,
+      'Cliente': client.value,
+      'Servicos': services.value,
+      'Descrição': description.value,
+      'Tipo de Desconto': discountType.value,
+      'Valor do Desconto': discountValue.value,
+      'Subtotal': subtotal.value,
+      'Total': total.value,
+    })
+  }
+}
 </script>
