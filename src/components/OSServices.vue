@@ -4,7 +4,7 @@
   <v-table>
     <thead>
     <tr>
-      <th class="w-50">Descrição</th>
+      <th>Descrição</th>
       <th style="width: 150px">Preço</th>
       <th style="width: 110px">Qnt.</th>
       <th class="text-right">Total</th>
