@@ -62,7 +62,14 @@
 
           <template v-if="debug">
             <hr class="my-6">
-            <pre>{{ serviceOrderStore }}</pre>
+            <b>Detalhes:</b> {{orderDetails}} <br>
+            <b>Cliente:</b> {{client}} <br>
+            <b>Servicos:</b> {{services}} <br>
+            <b>Descrição:</b> {{description}} <br>
+            <b>Tipo de Desconto:</b> {{discountType}} <br>
+            <b>Valor do Desconto:</b> {{discountValue}} <br>
+            <b>Subtotal:</b> {{subtotal}} <br>
+            <b>Total:</b> {{total}} <br>
           </template>
         </v-container>
       </v-main>
